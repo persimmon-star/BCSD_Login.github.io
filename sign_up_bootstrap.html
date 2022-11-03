@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/registration.css" th:href="@{/css/registration.css}"/>
+    <style>
+    body {
+        background: #043041;
+        height: 100vh;
+    }
+    
+    .signup-form {
+        background: #043041;
+    }
+    
+    .signup-text {
+        background: #1F4758;
+        color: #eee;
+        border: 0;
+    }
+    
+    .signup-text:focus {
+        color: #111;
+    }
+    
+    select option[value =""][disabled]{
+        display: none;
+    }
+</style>
+</head>
+<body>
+    <div class="container-flid p-5 mt-5 text-center">
+        <h1 class="display-4 text-light">BCSD FrontEnd</h1>
+        
+        <div class="row">
+            <div class="col-md-3 col-xl-4"></div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card signup-form border-0">
+                    <i class="fas fa-sign-in-alt mt-4 mx-auto fa-3x text-warning"></i>
+                    <div class="card-body">
+                        <form autocomplete="off" action="#" th:action="@{/registration}" th:object="${account}" method="post" class="form-horizontal" role="form">
+                            <h3 class="text-white text-uppercase mb-5">Registration</h3>
+                            <!-- 아이디 -->
+                            <div class="form-group">
+                                <input type="text" id = "username" placeholder="아이디 (usernam@example.com)" class="form-control signup-text" autofocus />
+                                <label class="validation-message"></label>
+                            </div>
+                            <!-- 비밀번호 --> 
+                            <div class="form-group">
+                                <input type="password" id = "password" placeholder="비밀번호" class="form-control signup-text"/>
+                                <label class="validation-message"></label>
+                            </div>
+                            <!-- 비밀번호 확인 -->
+                            <div class="form-group">
+                                <input type="password" id = "repwd" placeholder="비밀번호 확인" class="form-control signup-text"/> 
+                                <label class="validation-message"></label>
+                            </div>
+                            <!-- 학번 -->
+                            <div class="form-group">
+                                <input type="학번" id = student_num placeholder="학번" class="form-control signup-text"/> 
+                                <label class="validation-message"></label>
+                            </div>
+                            <!-- 전공 -->
+                            <div class="form-group">
+                                <select name="major" id = "major" input type="전공" class="form-control signup-text"> 
+                                <label class="validation-message"></label>
+                                <option value="" selected disabled>전공</option>
+                                    <option>기계공학부</option>
+                                    <option>메카트로닉스공학부</option>
+                                    <option>전기전자통신부</option>
+                                    <option>컴퓨터공학부</option>
+                                    <option>디자인공학부</option>
+                                    <option>에너지신소재공학부</option>
+                                    <option>산업경영학부</option>
+                                    <option>고용서비스정책학과</option>
+                                    <option>교양학부</option>
+                                    <option>HRD학과</option>
+                                    <option>융합학과</option>
+                                </select>
+                            </div><br>
+                            <!-- 휴대폰 번호 -->
+                            <div class="form-group">
+                                <input type="phone_num" id = phone_num th:field="*{휴대폰 번호}" placeholder="휴대폰 번호" class="form-control signup-text"/> 
+                                <label class="validation-message"></label>
+                            </div>
+                            <!-- submit button -->
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-success btn-block btn-info" name="Submit" value="SignUp" onclick = "return joinform_check();">회원가입</button>
+                            </div>
+                            <form action="/login_bootstrap.html" method="get">
+                                <a href ="C:\Users\user\Desktop\WEB\BCSD_FrontEnd\4weeks\login_bootstrap.html" button type="submit" class="text-white">취소</button></a>
+                            </form>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-xl-4"></div>
+        </div>
+    </div>
+    <script>
+    //joinform_check 함수로 유효성 검사
+    function joinform_check(){
+        //변수에 담아주기
+        let id = document.getElementById("username");
+        let pw = document.getElementById("password");  
+        let repwd = document.getElementById("repwd");
+        let student_num = document.getElementById("student_num");
+        let major = document.getElementById("major");
+        let phone_num = document.getElementById("phone_num");
+
+        let email = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        if (!email.test(id.value)) {
+            alert("아이디는 이메일 형식을 사용해야 합니다.");
+            id.focus();
+            return false;
+        }; 
+        if (pw.value == "") {
+            alert("비밀번호를 입력하세요.");
+            pw.focus();
+            return false;
+        };
+        if (repwd.value == "") {
+            alert("비밀번호를 입력하세요.");
+            repwd.focus();
+            return false;
+        };
+        
+        // 비밀번호 영문자+숫자+특수조합(8~20자리 입력) 정규식
+        let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+
+        if (!pwdCheck.test(pw.value)) {
+            alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~20자리 사용해야 합니다.");
+            pw.focus();
+            return false;
+        };
+
+        if (repwd.value !== pw.value) {
+            alert("비밀번호가 일치하지 않습니다.");
+            repwd.focus();
+            return false;
+        };
+            
+        let num = /[0-9].{9,10}$/g; // 숫자만 입력하는 정규식 (10자리)
+        if (!num.test(student_num.value)) {
+            alert("학번은 10자리만 입력할 수 있습니다.");
+            student_num.focus();
+            return false;
+        };
+
+        if(major.value ==""){
+          alert("학과를 선택해주세요.")
+          major.focus();
+          return false;
+        }
+
+        let reg = /^[0-9]+/g; // 숫자만 입력하는 정규식
+        if (!reg.test(phone_num.value)) {
+            alert("휴대폰 번호는 숫자만 입력할 수 있습니다.");
+            phone_num.focus();
+            return false;  
+        } else{
+          alert("제출");
+          submit();
+        }
+    };
+    </script>
+<!-- Javascript of Bootstrap  -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="/lib/fontawesome-free-5.12.1-web/js/all.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!-- kamms7@naver.com   asdf1234!!   2019136145   01047174940  -->
