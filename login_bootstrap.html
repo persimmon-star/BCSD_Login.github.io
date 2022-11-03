@@ -49,10 +49,10 @@
                             <div>
                                 <p><a href =" " class="find-password">Forgot Password?</a></p><br>
                             </div>
-                            <button class="btn btn-lg btn-success btn-block text-uppercase" name="Submit" value="Login" type="Submit" onclick = "submit_check();">로그인</button>
+                            <button class="btn btn-lg btn-success btn-block text-uppercase" name="Submit" value="Login" type="Submit" onclick = "return submit_check();">로그인</button>
                             
-                            <form action="/login_bootstrap.html" method="get">
-                              <a href ="C:\Users\user\Desktop\WEB\BCSD_FrontEnd\4weeks\sign_up_bootstrap.html" button type="submit" class="btn btn-lg btn-success btn-block btn-info">회원가입</button></a>
+                            <form action="https://persimmon-star.github.io/BCSD_Login.github.io/" method="get">
+                              <a href ="https://persimmon-star.github.io/BCSD_Login.github.io/sign_up_bootstrap.html" button type="submit" class="btn btn-lg btn-success btn-block btn-info">회원가입</button></a>
                             </form>
                         </form>
                     </div>
@@ -66,10 +66,11 @@
         let id = document.getElementById("username");
         let pw = document.getElementById("password");
 
-        if(id.value ==""){
-          alert("아이디를 입력하세요.")
-          id.focus();
-          return false;
+        let email = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        if (!email.test(id.value)) {
+            alert("이메일 형식의 아이디를 입력하세요.");
+            id.focus();
+            return false;
         }else if (pw.value ==""){
           alert("비밀번호를 입력하세요.");
           pw.focus();
