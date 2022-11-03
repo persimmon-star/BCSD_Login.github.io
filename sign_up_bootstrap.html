@@ -4,7 +4,7 @@ xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>회원가입 페이지</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/registration.css" />
+    <link rel="stylesheet" type="text/css" href="/css/registration.css"/>
     <style>
     body {
         background: #043041;
@@ -59,30 +59,17 @@ xmlns:th="http://www.thymeleaf.org">
                             </div>
                             <!-- 학번 -->
                             <div class="form-group">
-                                <input type="학번" id = student_num placeholder="학번" class="form-control signup-text"/> 
+                                <input type='number' id = student_num placeholder="학번" class="form-control signup-text"/> 
                                 <label class="validation-message"></label>
                             </div>
                             <!-- 전공 -->
                             <div class="form-group">
-                                <select name="major" id = "major" input type="전공" class="form-control signup-text"> 
+                                <input id = "major" placeholder="학과" class="form-control signup-text"> 
                                 <label class="validation-message"></label>
-                                <option value="" selected disabled>전공</option>
-                                    <option>기계공학부</option>
-                                    <option>메카트로닉스공학부</option>
-                                    <option>전기전자통신부</option>
-                                    <option>컴퓨터공학부</option>
-                                    <option>디자인공학부</option>
-                                    <option>에너지신소재공학부</option>
-                                    <option>산업경영학부</option>
-                                    <option>고용서비스정책학과</option>
-                                    <option>교양학부</option>
-                                    <option>HRD학과</option>
-                                    <option>융합학과</option>
-                                </select>
-                            </div><br>
+                            </div>
                             <!-- 휴대폰 번호 -->
                             <div class="form-group">
-                                <input type="phone_num" id = phone_num th:field="*{휴대폰 번호}" placeholder="휴대폰 번호" class="form-control signup-text"/> 
+                                <input type="phone_num" id = phone_num placeholder="휴대폰 번호" class="form-control signup-text"/> 
                                 <label class="validation-message"></label>
                             </div>
                             <!-- submit button -->
@@ -90,7 +77,7 @@ xmlns:th="http://www.thymeleaf.org">
                                 <button class="btn btn-lg btn-success btn-block btn-info" name="Submit" value="SignUp" onclick = "return joinform_check();">회원가입</button>
                             </div>
                             <form action="https://persimmon-star.github.io/BCSD_Login.github.io/" method="get">
-                                <a href ="https://persimmon-star.github.io/BCSD_Login.github.io/" button type="submit" class="text-white">취소</button></a>
+                                <a href ="https://persimmon-star.github.io/BCSD_Login.github.io/login_bootstrap.html" button type="submit" class="text-white">취소</button></a>
                             </form>
                         </form>
                     </div>
@@ -141,7 +128,8 @@ xmlns:th="http://www.thymeleaf.org">
             repwd.focus();
             return false;
         };
-            
+        
+        
         let num = /[0-9].{9,10}$/g; // 숫자만 입력하는 정규식 (10자리)
         if (!num.test(student_num.value)) {
             alert("학번은 10자리만 입력할 수 있습니다.");
@@ -150,7 +138,7 @@ xmlns:th="http://www.thymeleaf.org">
         };
 
         if(major.value ==""){
-          alert("학과를 선택해주세요.")
+          alert("학과를 입력해주세요.")
           major.focus();
           return false;
         }
